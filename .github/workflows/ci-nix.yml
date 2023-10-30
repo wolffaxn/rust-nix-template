@@ -1,0 +1,16 @@
+on:
+  pull_request:
+  push:
+    paths:
+      - "**.nix"
+      - "**.lock"
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: DeterminateSystems/nix-installer-action@main
+    - run: nix develop -c rustc --version
+    - run: nix run

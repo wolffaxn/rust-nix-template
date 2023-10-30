@@ -13,11 +13,11 @@
         inherit system;
       };
         
-      packages.naersk = pkgs.callPackage naersk {};
+      naerskLib = pkgs.callPackage naersk {};
 
     in rec {
       # for `nix build` & `nix run`
-      defaultPackage = packages.naersk.buildPackage {
+      defaultPackage = naerskLib.buildPackage {
         src = ./.;
       };
 
