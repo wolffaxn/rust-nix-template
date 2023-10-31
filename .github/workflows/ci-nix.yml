@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - "**.nix"
+      - "**.rs"
       - "**.lock"
   workflow_dispatch:
 
