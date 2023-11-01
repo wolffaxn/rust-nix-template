@@ -9,6 +9,7 @@ on:
       - "**.lock"
       - "**.nix"
       - "**.rs"
+      - "**.toml"
 
 jobs:
   check:
