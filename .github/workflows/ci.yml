@@ -1,24 +1,23 @@
-name: ci
+name: CI
 
 on:
-  workflow_dispatch: # allows manual triggering
   pull_request:
   push:
-    paths:
-      - ".github/workflows/*.yml"
-      - "**.lock"
-      - "**.nix"
-      - "**.rs"
-      - "**.toml"
-
+    branches: [main]
+  workflow_dispatch:
+  
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout repository    
         uses: actions/checkout@v4
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main 
+      
+      - name: Install Nix      
+        uses: DeterminateSystems/nix-installer-action@main
+      
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
       - run: nix develop -c cargo --version
       - run: nix develop -c rustc --version
       - run: nix run
