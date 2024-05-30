@@ -1,5 +1,5 @@
 {
-  description = "rust-nix-sample";
+  description = "rust-nix-template";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -8,23 +8,23 @@
   };
 
   outputs = { self, nixpkgs, flake-utils, naersk }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (system: let
-      pkgs = (import nixpkgs) {
-        inherit system;
-      };
-        
-      naerskLib = pkgs.callPackage naersk {};
+    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ] (system:
+      let
+        pkgs = (import nixpkgs) {
+          inherit system;
+        };
+        naerskLib = pkgs.callPackage naersk {};
+      in
+      rec {
+        # for `nix build` & `nix run`
+        defaultPackage = naerskLib.buildPackage {
+          src = ./.;
+        };
 
-    in rec {
-      # for `nix build` & `nix run`
-      defaultPackage = naerskLib.buildPackage {
-        src = ./.;
-      };
-
-      # for `nix develop`
-      devShell = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [ cargo rustc ];
-      };
-    }
-  );
+        # for `nix develop`
+        devShell = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [ cargo rustc ];
+        };
+      }
+    );
 }
