@@ -9,8 +9,8 @@ BUILD_DATE = $(strip $(shell date -u +'%Y-%m-%dT%H:%M:%SZ'))
 GIT_COMMIT = $(strip $(shell git rev-parse --short HEAD))
 # get remote origin url
 GIT_URL = $(strip $(shell git config --get remote.origin.url))
-# get version
-VERSION = 0.1.0
+# get version from Cargo.toml
+VERSION = $(strip $(shell grep -m 1 version Cargo.toml | tr -s ' ' | tr -d '"' | tr -d "'" | cut -d ' ' -f3))
 
 .PHONY: build
 build: docker-build
