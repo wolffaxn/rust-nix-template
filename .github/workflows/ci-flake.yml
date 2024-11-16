@@ -1,4 +1,4 @@
-name: update-flake-lock
+name: "Update flake.lock"
 
 on:
   workflow_dispatch: # allows manual triggering
@@ -7,18 +7,15 @@ on:
 
 jobs:
   lockfile:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@main
       - uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Update flake.lock
-        uses: DeterminateSystems/update-flake-lock@main
+      - uses: DeterminateSystems/update-flake-lock@main
         with:
           pr-title: "Update flake.lock"
           pr-assignees: wolffaxn
