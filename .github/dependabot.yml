@@ -7,7 +7,7 @@ updates:
     # check for updates every weekday
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "06:00"
     assignees:
       - "wolffaxn"
 
@@ -17,6 +17,6 @@ updates:
     # check for updates every weekday
     schedule:
       interval: "daily"
-      time: "08:00"
+      time: "06:00"
     assignees:
       - "wolffaxn"
