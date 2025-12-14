@@ -1,22 +1,22 @@
 version: 2
 updates:
-  # enable version updates for github actions
   - package-ecosystem: "github-actions"
-    # look for github actions in the root directory
     directory: "/"
-    # check for updates every weekday
     schedule:
       interval: "daily"
-      time: "06:00"
+    assignees:
+      - "wolffaxn"
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "daily"
     assignees:
       - "wolffaxn"
 
   - package-ecosystem: "cargo"
-    # look for cargo dependencies in the root directory
     directory: "/"
-    # check for updates every weekday
     schedule:
       interval: "daily"
-      time: "06:00"
     assignees:
       - "wolffaxn"
